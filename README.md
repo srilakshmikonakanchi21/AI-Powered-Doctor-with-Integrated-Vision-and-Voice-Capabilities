@@ -2,7 +2,7 @@
 
 An interactive medical assistant that combines **vision** and **voice** capabilities to provide medical insights. The bot can analyze medical images and respond to voice queries, delivering responses in both **text** and **voice** format.
 
-![AI Medical Bot](Output/output.gif)
+![AI Medical Bot]
 
 ## Deployment Link
 
@@ -38,7 +38,7 @@ To run this project, you need the following:
 Start by cloning the repository to your local machine:
 
 ```bash
-git clone https://github.com/alok-ahirrao/AI_MEDICAL_BOT
+git clone https://github.com/srilakshmikonakanchi21/AI-Powered-Doctor-with-Integrated-Vision-and-Voice-Capabilities
 cd AI_MEDICAL_BOT
 ```
 
@@ -65,6 +65,8 @@ Create a `.env` file in the project root and add your **GROQ API Key**:
 
 ```
 GROQ_API_KEY=your_api_key_here
+OPENAI_API_KEY=your_api_key_here
+
 ```
 
 ---
@@ -106,7 +108,7 @@ Use the interface to:
 
 ## License
 
-Copyright (c) 2025, Alok Ahirrao
+Copyright (c) 2025, Konakanchi Sri Lakshmi
 
 This work is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License.  
 To view a copy of this license, visit [Creative Commons License](http://creativecommons.org/licenses/by-nc/4.0/).
@@ -120,7 +122,7 @@ Under the following terms:
   You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
 - **NonCommercial**: You may not use the material for commercial purposes.
 
-For permissions beyond the scope of this license, contact [alokahirrao.ai@gmail.com](mailto:alokahirrao.ai@gmail.com).
+For permissions beyond the scope of this license, contact [srilakshmikonakanchi21@gmail.com](mailto:srilakshmikonakanchi21@gmail.com).
 
 ---
 

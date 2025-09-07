@@ -7,17 +7,15 @@ from think import encode_image, analyze_image_with_query
 from user_voice import transcribe_with_groq
 from assistant_voice import text_to_speech_with_gtts_old
 
-# Configure logging
+# Logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-# Load environment variables
+# Load .env
 load_dotenv()
 
-# ✅ Debug: check if keys are loaded
 print("OPENAI_API_KEY:", os.getenv("OPENAI_API_KEY"))
 print("GROQ_API_KEY:", os.getenv("GROQ_API_KEY"))
 
-# Check for required API key
 if not os.getenv("GROQ_API_KEY") or not os.getenv("OPENAI_API_KEY"):
     raise ValueError("API keys missing! Please check your .env file.")
 
@@ -26,27 +24,30 @@ MODEL = "meta-llama/llama-4-scout-17b-16e-instruct"
 def process_input(audio_file_path, image_file_path):
     try:
         logging.info("Processing input...")
-        speech_to_text_output = ""
-        assistant_response = "Image not provided."
+        speech_to_text_output = "No audio input provided."
+        assistant_response = "No image provided."
+        output_audio_path = None
 
-        # Process audio if provided
+        # Audio transcription
         if audio_file_path:
-            logging.info("Transcribing audio...")
+            logging.info(f"Transcribing audio: {audio_file_path}")
             speech_to_text_output = transcribe_with_groq("whisper-large-v3", audio_file_path)
-        else:
-            speech_to_text_output = "No audio input provided."
-            
-        # Process image if provided
+
+        # Image analysis
         if image_file_path:
-            logging.info("Encoding image...")
+            logging.info(f"Encoding image: {image_file_path}")
             encoded_image = encode_image(image_file_path)
             logging.info("Analyzing image with AI...")
             assistant_response = analyze_image_with_query(speech_to_text_output, encoded_image, MODEL)
 
-        # Convert assistant response to speech
-        logging.info("Converting text to speech...")
-        output_audio_path = "assistant_response.mp3"
-        text_to_speech_with_gtts_old(assistant_response, output_audio_path)
+        # Convert text to speech
+        if assistant_response:
+            output_audio_path = "assistant_response.mp3"
+            logging.info(f"Generating voice at {output_audio_path}")
+            text_to_speech_with_gtts_old(assistant_response, output_audio_path)
+            if not os.path.exists(output_audio_path):
+                logging.warning("Audio file was not created!")
+                output_audio_path = None
 
         logging.info("Processing completed successfully.")
         return speech_to_text_output, assistant_response, output_audio_path
@@ -57,7 +58,7 @@ def process_input(audio_file_path, image_file_path):
         return "Error processing input", error_message, None
 
 
-# ✅ Gradio UI
+# Gradio UI
 with gr.Blocks(title="AI Doctor with Vision and Voice") as demo:
     gr.Markdown("## AI Doctor with Vision and Voice\nUpload a medical image and speak your question. The AI doctor will analyze the image and respond both in text and voice.")
 
@@ -72,7 +73,6 @@ with gr.Blocks(title="AI Doctor with Vision and Voice") as demo:
             voice_output = gr.Audio(label="Doctor's Voice Response", type="filepath")
 
     submit_btn = gr.Button("Submit")
-
     submit_btn.click(
         fn=process_input,
         inputs=[audio_input, image_input],
