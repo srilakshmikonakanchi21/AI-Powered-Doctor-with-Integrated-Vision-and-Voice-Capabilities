@@ -4,14 +4,6 @@ An interactive medical assistant that combines **vision** and **voice** capabili
 
 ![AI Medical Bot]
 
-## Deployment Link
-
-You can access the live deployment of this AI Medical Bot on Hugging Face Spaces:
-
-[AI Medical Bot on Hugging Face Spaces](https://huggingface.co/spaces/AlokAhirrao/AI_MEDICAL_BOT)
-
----
-
 ## Features
 
 - 🎤 **Voice Input**: Record your medical questions using your microphone.
