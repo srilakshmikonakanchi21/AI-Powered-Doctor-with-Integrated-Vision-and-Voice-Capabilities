@@ -2,7 +2,7 @@
 
 An interactive medical assistant that combines **vision** and **voice** capabilities to provide medical insights. The bot can analyze medical images and respond to voice queries, delivering responses in both **text** and **voice** format.
 
-![AI Medical Bot](Output/output.mov)
+![AI Medical Bot](Output/output.jpg)
 
 ## Features
 
